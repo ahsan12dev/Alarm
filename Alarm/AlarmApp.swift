@@ -4,7 +4,7 @@
 //
 //  Created by Ahsan Aqeel on 17/02/2025.
 //
-
+import SwiftData
 import SwiftUI
 
 @main
@@ -13,5 +13,6 @@ struct AlarmApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Alarm.self)
     }
 }
