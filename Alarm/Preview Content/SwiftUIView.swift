@@ -38,7 +38,7 @@ struct AlarmListView: View {
                         EditAlarmView(alarm: alarm)
                     }
                 }.padding(.horizontal)
-                headerView()
+                topHeading()
                 AlarmlistView()
             }
             Tab("StopWatch", systemImage: "stopwatch.fill") {
@@ -50,7 +50,7 @@ struct AlarmListView: View {
         }.tabViewStyle(.tabBarOnly)
     }
     
-    fileprivate func headerView() -> VStack<some View> {
+    fileprivate func topHeading() -> VStack<some View> {
         return VStack(alignment: .leading) {
             Text("Alarms")
                 .frame(maxWidth: .infinity, alignment: .leading)
