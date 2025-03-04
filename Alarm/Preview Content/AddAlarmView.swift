@@ -17,7 +17,7 @@ struct AddAlarmView: View {
     @Environment(\.presentationMode) var presentationMode
     
     var alarmData: ((_ alarmData: Alarm) -> Void)
-    let PickerData = ["Every Monday","Every Tuesday","Every Wednesday","Every Thursday","Every Friday","Every Saturday","Every Sunday","Never"]
+    let repeatData = ["Every Monday","Every Tuesday","Every Wednesday","Every Thursday","Every Friday","Every Saturday","Every Sunday","Never"]
     let soundName = ["AudioServicesPlaySystemSound(1003)","AudioServicesPlaySystemSound(1004)","AudioServicesPlaySystemSound(1005)","AudioServicesPlaySystemSound(1006)","AudioServicesPlaySystemSound(1007)","AudioServicesPlaySystemSound(1519)"]
     
     var body: some View {
@@ -69,7 +69,7 @@ struct AddAlarmView: View {
     
     fileprivate func addRepeat() -> some View {
         return Picker("Repeat", selection: $RepeatPickerSelected) {
-            ForEach(PickerData, id: \.self) { option in
+            ForEach(repeatData, id: \.self) { option in
                 Text(option)
             }
         }
