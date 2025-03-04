@@ -118,7 +118,6 @@ struct AddAlarmView: View {
         return formatter.string(from: date)
     }
 }
-
 #Preview {
     AddAlarmView { alarmData in
         
