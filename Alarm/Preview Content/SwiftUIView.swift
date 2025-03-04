@@ -92,8 +92,6 @@ struct AlarmListView: View {
                                 let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
                                 UNUserNotificationCenter.current().add(request)
                                 print("Ringed")
-                            } else {
-                                print("No Alarm At This Time")
                             }
                         }
                     }
