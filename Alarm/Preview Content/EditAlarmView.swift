@@ -15,18 +15,19 @@ struct EditAlarmView: View {
     var body: some View {
         NavigationStack {
             
-            topHeader()
+            topNavbar()
             
             Form {
                 editTime()
                 
-                editRepeat()
+                editRepeatOption()
                 
-                editLabel()
+                editTextLabel()
                 
-                editSound ()
+                editSoundOption ()
                 
-                editSnooze()
+                editSnoozeToggle()
+                
                 Button("Delete", action: {
                     deleteAlarm(folder: alarm)
                     presentationMode.wrappedValue.dismiss()
@@ -38,7 +39,7 @@ struct EditAlarmView: View {
         }
     }
     
-    fileprivate func topHeader() -> some View {
+    fileprivate func topNavbar() -> some View {
         return HStack {
             Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
@@ -64,7 +65,7 @@ struct EditAlarmView: View {
             .datePickerStyle(WheelDatePickerStyle())
     }
     
-    fileprivate func editRepeat() -> some View {
+    fileprivate func editRepeatOption() -> some View {
         return Picker("Repeat", selection: $alarm.repeatOption) {
             ForEach(PickerData, id: \.self) { option in
                 Text(option).tag(option)
@@ -73,7 +74,7 @@ struct EditAlarmView: View {
         .pickerStyle(.navigationLink)
     }
     
-    fileprivate func editLabel() -> HStack<TupleView<(Text, Spacer, some View)>> {
+    fileprivate func editTextLabel() -> HStack<TupleView<(Text, Spacer, some View)>> {
         return HStack {
             Text("Label")
             Spacer()
@@ -84,7 +85,7 @@ struct EditAlarmView: View {
         }
     }
     
-    fileprivate func editSound() -> some View {
+    fileprivate func editSoundOption() -> some View {
         return Picker("Sound", selection: $alarm.sound) {
             ForEach(soundName, id: \.self) { option in
                 Text(option).tag(option)
@@ -93,7 +94,7 @@ struct EditAlarmView: View {
         .pickerStyle(.navigationLink)
     }
     
-    fileprivate func editSnooze() -> Toggle<Text> {
+    fileprivate func editSnoozeToggle() -> Toggle<Text> {
         return Toggle(isOn: $snoozeSelected) {
             Text("Snooze")
         }

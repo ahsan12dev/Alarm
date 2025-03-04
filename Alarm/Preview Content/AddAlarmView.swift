@@ -24,24 +24,24 @@ struct AddAlarmView: View {
         
         NavigationStack {
             VStack {
-                topHeader()
+                topNavbar()
                 
                 Form {
                     addTime()
                     
-                    addRepeat()
+                    addRepeatOption()
                     
-                    addLabel()
+                    addTextLabel()
                     
-                    addSound()
+                    addSoundOption()
                     
-                    addSnooze()
+                    addSnoozeToggle()
                 }
             }
         }
     }
     
-    fileprivate func topHeader() -> HStack<TupleView<(some View, Spacer, Text, Spacer, some View)>> {
+    fileprivate func topNavbar() -> HStack<TupleView<(some View, Spacer, Text, Spacer, some View)>> {
         return HStack {
             Button("Cancel", action: {
                 presentationMode.wrappedValue.dismiss()
@@ -67,7 +67,7 @@ struct AddAlarmView: View {
             .datePickerStyle(WheelDatePickerStyle())
     }
     
-    fileprivate func addRepeat() -> some View {
+    fileprivate func addRepeatOption() -> some View {
         return Picker("Repeat", selection: $RepeatPickerSelected) {
             ForEach(repeatData, id: \.self) { option in
                 Text(option)
@@ -76,7 +76,7 @@ struct AddAlarmView: View {
         .pickerStyle(.navigationLink)
     }
     
-    fileprivate func addSound() -> some View {
+    fileprivate func addSoundOption() -> some View {
         return Picker("Sound", selection: $soundDataSelected) {
             ForEach(soundName, id: \.self) { option in
                 Text(option)
@@ -85,7 +85,7 @@ struct AddAlarmView: View {
         .pickerStyle(.navigationLink)
     }
     
-    fileprivate func addLabel() -> HStack<TupleView<(Text, Spacer, some View)>> {
+    fileprivate func addTextLabel() -> HStack<TupleView<(Text, Spacer, some View)>> {
         return HStack {
             Text("Label")
             Spacer()
@@ -97,7 +97,7 @@ struct AddAlarmView: View {
         }
     }
     
-    fileprivate func addSnooze() -> Toggle<Text> {
+    fileprivate func addSnoozeToggle() -> Toggle<Text> {
         return Toggle(isOn: $isEnabledToggle) {
             Text("Snooze")
         }
@@ -118,6 +118,7 @@ struct AddAlarmView: View {
         return formatter.string(from: date)
     }
 }
+
 #Preview {
     AddAlarmView { alarmData in
         
