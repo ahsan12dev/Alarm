@@ -50,24 +50,6 @@ struct AlarmListView: View {
         }.tabViewStyle(.tabBarOnly)
     }
     
-    fileprivate func topNavBarView() -> some View {
-        return HStack {
-            VStack(spacing: 5){
-                Button("Edit",action: {
-                    print("Edit clicked")
-                })
-            }
-            Spacer()
-            NavigationLink(destination: AddAlarmView { alarmData in
-            }) {
-                Image(systemName: "plus.circle.fill")
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(.blue)
-            }
-        }.padding(.horizontal)
-    }
-    
     fileprivate func headerView() -> VStack<some View> {
         return VStack(alignment: .leading) {
             Text("Alarms")
