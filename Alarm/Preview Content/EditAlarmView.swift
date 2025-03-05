@@ -24,7 +24,7 @@ struct EditAlarmView: View {
                 
                 editTextLabel()
                 
-                editSoundOption ()
+                editSoundOption()
                 
                 editSnoozeToggle()
                 
