@@ -61,7 +61,6 @@ struct AlarmListView: View {
                 .padding(.bottom)
         }
     }
-    
     fileprivate func AlarmlistView() -> NavigationView<some View> {
         return NavigationView {
             List {
