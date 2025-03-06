@@ -2,12 +2,12 @@ import SwiftUI
 import SwiftData
 
 struct EditAlarmView: View {
-    @Environment(\.modelContext) var modelContext
-    @Environment(\.presentationMode) var presentationMode
     @State var alarm: Alarm
     @State private var dateSelected: Date = Date()
     @State private var noteSelected: String = ""
-    @State private var snoozeSelected: Bool = false
+    @State private var soundSelected: String = ""
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.presentationMode) var presentationMode
     
     let PickerData = ["Every Monday", "Every Tuesday", "Every Wednesday", "Every Thursday", "Every Friday", "Every Saturday", "Every Sunday", "Never"]
     let soundName = ["AudioServicesPlaySystemSound(1003)","AudioServicesPlaySystemSound(1004)","AudioServicesPlaySystemSound(1005)","AudioServicesPlaySystemSound(1006)","AudioServicesPlaySystemSound(1007)","AudioServicesPlaySystemSound(1519)"]
@@ -61,7 +61,7 @@ struct EditAlarmView: View {
     }
     
     fileprivate func editTime() -> some View {
-        return DatePicker("Time", selection: $dateSelected, displayedComponents: .hourAndMinute)
+        return DatePicker("", selection: $dateSelected, displayedComponents: .hourAndMinute)
             .datePickerStyle(WheelDatePickerStyle())
     }
     
@@ -74,7 +74,7 @@ struct EditAlarmView: View {
         .pickerStyle(.navigationLink)
     }
     
-    fileprivate func editTextLabel() -> HStack<TupleView<(Text, Spacer, some View)>> {
+    fileprivate func editTextLabel() -> some View {
         return HStack {
             Text("Label")
             Spacer()
@@ -95,7 +95,7 @@ struct EditAlarmView: View {
     }
     
     fileprivate func editSnoozeToggle() -> Toggle<Text> {
-        return Toggle(isOn: $snoozeSelected) {
+        return Toggle(isOn: $alarm.isEnabled) {
             Text("Snooze")
         }
     }
@@ -106,8 +106,9 @@ struct EditAlarmView: View {
         }
     }
     private func populateAlarmData() {
-        dateSelected = parseTime(alarm.time)
-        snoozeSelected = alarm.isEnabled
+        if !alarm.time.isEmpty {
+            dateSelected = parseTime(alarm.time)
+        }
     }
     
     private func formatTime(_ date: Date) -> String {

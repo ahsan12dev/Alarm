@@ -63,7 +63,7 @@ struct AddAlarmView: View {
     }
     
     fileprivate func addTime() -> some View {
-        return DatePicker("Time", selection: $dateSelected, displayedComponents: .hourAndMinute)
+        return DatePicker("", selection: $dateSelected, displayedComponents: .hourAndMinute)
             .datePickerStyle(WheelDatePickerStyle())
     }
     
