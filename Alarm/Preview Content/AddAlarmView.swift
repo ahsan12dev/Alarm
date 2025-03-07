@@ -3,8 +3,6 @@ import AVFoundation
 import SwiftData
 
 struct AddAlarmView: View {
-    @Environment(\.modelContext) var modelContext
-    @Query var alarms: [Alarm]
     @State private var alarm: Bool = false
     @State private var labelPickerSelected: String = ""
     @State private var RepeatPickerSelected: String = ""
@@ -15,6 +13,8 @@ struct AddAlarmView: View {
     @State private var isEnabledToggle: Bool = true
     @State private var dateSelected: Date = Date()
     @Environment(\.presentationMode) var presentationMode
+    @Environment(\.modelContext) var modelContext
+    @Query var alarms: [Alarm]
     
     var alarmData: ((_ alarmData: Alarm) -> Void)
     let repeatData = ["Every Monday","Every Tuesday","Every Wednesday","Every Thursday","Every Friday","Every Saturday","Every Sunday","Never"]
@@ -41,7 +41,7 @@ struct AddAlarmView: View {
         }
     }
     
-    fileprivate func topNavbar() -> HStack<TupleView<(some View, Spacer, Text, Spacer, some View)>> {
+    fileprivate func topNavbar() -> some View {
         return HStack {
             Button("Cancel", action: {
                 presentationMode.wrappedValue.dismiss()
@@ -56,6 +56,15 @@ struct AddAlarmView: View {
                 alarmData(collectAlarmData())
                 presentationMode.wrappedValue.dismiss()
                 modelContext.insert(collectAlarmData())
+                print("""
+                      Alarm added Successfully :
+                      \(formatTime(dateSelected))
+                      \(RepeatPickerSelected)
+                      \(noteSelected)
+                      \(soundDataSelected)
+                      \(snoozeSelected)
+                      
+                      """)
             })
             .padding()
             .foregroundColor(.orange)

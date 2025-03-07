@@ -3,7 +3,8 @@ import SwiftData
 import UserNotifications
 
 struct AlarmListView: View {
-    @State private var selectedAlarm: Alarm?
+    @State private var searchbyAlarmTime: String = ""
+    @State private var filteredAlarms: [Alarm] = []
     @State private var selectedAlarmObj: Alarm?
     @State private var addAlarmSheet = false
     @Environment(\.modelContext) var modelContext
@@ -31,6 +32,7 @@ struct AlarmListView: View {
         .tabViewStyle(.tabBarOnly)
         .onAppear {
             requestNotificationPermission()
+            filterAlarm()
         }
     }
     
@@ -46,7 +48,6 @@ struct AlarmListView: View {
             .sheet(isPresented: $addAlarmSheet) {
                 AddAlarmView { alarmData in }
             }
-            .presentationDetents([.large, .large])
         }
         .padding(.horizontal)
         .padding(.bottom, 5)
@@ -54,11 +55,28 @@ struct AlarmListView: View {
     
     fileprivate func topHeading() -> some View {
         VStack(alignment: .leading) {
-            Text("Alarms")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.horizontal, 10)
+            HStack{
+                Text("Alarms")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.leading, 10)
+            }
+            
+            HStack{
+                Text("Search").padding(.leading)
+                TextField("Search by time", text: $searchbyAlarmTime)
+                    .textFieldStyle(.roundedBorder)
+                    .padding(.leading)
+                    .onChange(of: searchbyAlarmTime, perform: { _ in filterAlarm() })
+                Button(action: {
+                    filterAlarm()
+                }) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 24))
+                        .padding()
+                }
+            }
         }
     }
     
@@ -66,7 +84,7 @@ struct AlarmListView: View {
         NavigationView {
             List {
                 Section(header: Text("Other")) {
-                    ForEach(alarms, id: \.self) { alarm in
+                    ForEach(filteredAlarms, id: \.self) { alarm in
                         AlarmItemComponentView(alarm: alarm)
                             .background(Color.white)
                             .onTapGesture {
@@ -84,6 +102,10 @@ struct AlarmListView: View {
             .sheet(item: $selectedAlarmObj) { alarmObj in
                 EditAlarmView(alarm: alarmObj)
             }
+            .refreshable {
+                print("Alarms Refresh Successful")
+                filterAlarm()
+            }.padding(.top)
         }
     }
     
@@ -93,6 +115,16 @@ struct AlarmListView: View {
                 print("✅ Notifications allowed.")
             } else {
                 print("❌ Notifications denied.")
+            }
+        }
+    }
+    
+    private func filterAlarm(){
+        if searchbyAlarmTime.isEmpty{
+            filteredAlarms = alarms
+        } else {
+            filteredAlarms = alarms.filter { Alarm in
+                Alarm.time.lowercased().contains(searchbyAlarmTime.lowercased())
             }
         }
     }

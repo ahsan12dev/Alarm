@@ -12,6 +12,10 @@ struct EditAlarmView: View {
     let PickerData = ["Every Monday", "Every Tuesday", "Every Wednesday", "Every Thursday", "Every Friday", "Every Saturday", "Every Sunday", "Never"]
     let soundName = ["AudioServicesPlaySystemSound(1003)","AudioServicesPlaySystemSound(1004)","AudioServicesPlaySystemSound(1005)","AudioServicesPlaySystemSound(1006)","AudioServicesPlaySystemSound(1007)","AudioServicesPlaySystemSound(1519)"]
     
+    init(alarm: Alarm) {
+        _alarm = State(initialValue: alarm)
+        _dateSelected = State(initialValue: parseTime(alarm.time))
+    }
     var body: some View {
         NavigationStack {
             
@@ -54,6 +58,14 @@ struct EditAlarmView: View {
                 alarm.time = formatTime(dateSelected)
                 try? modelContext.save()
                 presentationMode.wrappedValue.dismiss()
+                print("""
+                        Alarm After Update: 
+                        \(alarm.time) 
+                        \(alarm.repeatOption) 
+                        \(alarm.note) 
+                        \(alarm.sound) 
+                        \(alarm.isEnabled)
+                        """)
             }
             .foregroundColor(.orange)
         }
@@ -106,9 +118,7 @@ struct EditAlarmView: View {
         }
     }
     private func populateAlarmData() {
-        if !alarm.time.isEmpty {
-            dateSelected = parseTime(alarm.time)
-        }
+        dateSelected = parseTime(alarm.time)
     }
     
     private func formatTime(_ date: Date) -> String {

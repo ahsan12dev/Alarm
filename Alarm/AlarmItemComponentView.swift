@@ -1,27 +1,27 @@
 import SwiftUI
+import SwiftData
 
 struct AlarmItemComponentView: View {
-    var time: String
-    var note: String
-    @State var isEnabled: Bool
+    @Bindable var alarm: Alarm
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(time)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                Text(note)
-                    .font(.system(size: 14))
-                    .fontWeight(.regular)
+                Text(alarm.time)
+                    .font(.largeTitle)
+                    .bold()
+                Text(alarm.note + " " + alarm.repeatOption)
+                    .foregroundColor(.gray)
             }
             Spacer()
-            Toggle("", isOn: $isEnabled)
-                .labelsHidden()
+            Toggle("", isOn: $alarm.isEnabled)
+                .onChange(of: alarm.isEnabled) { newValue in
+                    try? alarm.modelContext?.save()
+                }
         }
+        .padding(5)
     }
 }
-
 #Preview {
-    AlarmItemComponentView(time: "06:00 AM", note: "Meeting with the team", isEnabled: false)
+    AlarmItemComponentView(alarm: .init(time: "10:00 AM", repeatOption: "Alarm", note: "Wake Up", sound: "Beacon", isEnabled: true))
 }
