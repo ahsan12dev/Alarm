@@ -24,7 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04CE24452D631655004C2A38 /* Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Alarm.app; path = "/Users/mac/Documents/Alarm/build/Debug-iphoneos/Alarm.app"; sourceTree = "<absolute>"; };
+		04470B412D7B00F600E1A09F /* Alarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04CE24552D631657004C2A38 /* AlarmTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AlarmTests.xctest; path = "/Users/mac/Documents/Alarm/build/Debug-iphoneos/Alarm.app/PlugIns/AlarmTests.xctest"; sourceTree = "<absolute>"; };
 		04CE245F2D631657004C2A38 /* AlarmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = AlarmUITests.xctest; path = "/Users/mac/Documents/Alarm/build/Debug-iphoneos/AlarmUITests-Runner.app/PlugIns/AlarmUITests.xctest"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -78,6 +78,7 @@
 				04CE24472D631655004C2A38 /* Alarm */,
 				04CE24582D631657004C2A38 /* AlarmTests */,
 				04CE24622D631657004C2A38 /* AlarmUITests */,
+				04470B412D7B00F600E1A09F /* Alarm.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,7 +104,7 @@
 			packageProductDependencies = (
 			);
 			productName = Alarm;
-			productReference = 04CE24452D631655004C2A38 /* Alarm.app */;
+			productReference = 04470B412D7B00F600E1A09F /* Alarm.app */;
 			productType = "com.apple.product-type.application";
 		};
 		04CE24542D631657004C2A38 /* AlarmTests */ = {
@@ -387,6 +388,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Alarm/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Ahsan Aqeel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -415,6 +417,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Alarm/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Ahsan Aqeel";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
